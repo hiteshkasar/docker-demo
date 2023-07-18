@@ -1,12 +1,6 @@
-FROM jenkins/jenkins:latest
-USER root
-
-RUN mkdir -p /tmp/download && \
- curl -L https://get.docker.com/builds/Linux/x86_64/docker-1.13.1.tgz | tar -xz -C /tmp/download && \
- rm -rf /tmp/download/docker/dockerd && \
- mv /tmp/download/docker/docker* /usr/local/bin/ && \
- rm -rf /tmp/download && \
- groupadd -g 992 docker && \
- usermod -aG docker jenkins
-
- user jenkins   
+FROM node:10.16
+WORKDIR /app
+ADD . /app
+RUN npm install
+EXPOSE 3000
+CMD npm start
